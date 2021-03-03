@@ -23,6 +23,8 @@ Route::resource('courses', \App\Http\Controllers\CourseController::class)
     ->middleware('auth');
 Route::resource('courses.lessons', \App\Http\Controllers\CourseController::class)
     ->middleware('auth');
+Route::resource('courses.course_profiles', \App\Http\Controllers\CourseController::class)
+    ->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
