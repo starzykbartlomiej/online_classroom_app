@@ -16,13 +16,13 @@ class CreatePresencesTable extends Migration
         Schema::create('presences', function (Blueprint $table) {
             $table->id();
             $table->boolean('was_present');
-            $table->foreignId('user_id');
+            $table->foreignId('course_profile_id');
             $table->foreignId('lesson_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('course_profile_id')
                 ->references('id')
-                ->on('users')
+                ->on('course_profiles')
                 ->onDelete('cascade');
 
             $table->foreign('lesson_id')
@@ -39,8 +39,8 @@ class CreatePresencesTable extends Migration
      */
     public function down()
     {
-        Schema::table('lessons', function (Blueprint $table) {
-            $table->dropForeign('user_id');
+        Schema::table('presences', function (Blueprint $table) {
+            $table->dropForeign('course_profile_id');
             $table->dropForeign('lesson_id');
         });
 

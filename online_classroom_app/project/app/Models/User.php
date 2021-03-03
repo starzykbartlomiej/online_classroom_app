@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\CourseController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -40,4 +41,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    // my functions
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function course_profiles()
+    {
+        return $this->hasMany(Course_profile::class);
+    }
 }

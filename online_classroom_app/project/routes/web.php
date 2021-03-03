@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('cources.comments', App\Http\Controllers\CommentController::class)
+Route::resource('courses.comments', App\Http\Controllers\CommentController::class)
     ->middleware('auth');
 Route::resource('courses', \App\Http\Controllers\CourseController::class)
     ->middleware('auth');
