@@ -17,7 +17,13 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('text');
+            $table->foreignId('user_id');
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
@@ -28,6 +34,10 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
+        Schema::table('comments', function (Blueprint $table) {
+            $table->dropForeign('user_id');
+        });
+
         Schema::dropIfExists('comments');
     }
 }

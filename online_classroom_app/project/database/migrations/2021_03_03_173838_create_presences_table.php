@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCoursesTable extends Migration
+class CreatePresencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,21 @@ class CreateCoursesTable extends Migration
      */
     public function up()
     {
-        Schema::create('courses', function (Blueprint $table) {
+        Schema::create('presences', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->boolean('has_finished');
+            $table->boolean('was_present');
             $table->foreignId('user_id');
+            $table->foreignId('lesson_id');
             $table->timestamps();
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('lesson_id')
+                ->references('id')
+                ->on('lessons')
                 ->onDelete('cascade');
         });
     }
@@ -34,10 +39,11 @@ class CreateCoursesTable extends Migration
      */
     public function down()
     {
-        Schema::table('cources', function (Blueprint $table) {
+        Schema::table('lessons', function (Blueprint $table) {
             $table->dropForeign('user_id');
+            $table->dropForeign('lesson_id');
         });
 
-        Schema::dropIfExists('courses');
+        Schema::dropIfExists('presences');
     }
 }
