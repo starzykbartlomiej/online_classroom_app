@@ -17,8 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('comments', App\Http\Controllers\CommentController::class);
-Route::resource('courses', \App\Http\Controllers\CourseController::class)->middleware('auth');
+Route::resource('cources.comments', App\Http\Controllers\CommentController::class)
+    ->middleware('auth');
+Route::resource('courses', \App\Http\Controllers\CourseController::class)
+    ->middleware('auth');
+Route::resource('courses.lessons', \App\Http\Controllers\CourseController::class)
+    ->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
