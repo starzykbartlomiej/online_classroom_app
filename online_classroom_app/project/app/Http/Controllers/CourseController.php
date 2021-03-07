@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -14,7 +15,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::all();
+        return view('courses.index')->withCourses($courses);
     }
 
     /**
@@ -24,7 +26,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        return view('courses.create');
     }
 
     /**
@@ -35,7 +37,12 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $course = new Course();
+        $course->title = $request->title;
+        $course->has_finished = false;
+        $course->user_id = Auth::user()->id;
+        $course->save();
+        return redirect()->route('courses.index');
     }
 
     /**
